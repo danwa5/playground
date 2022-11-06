@@ -1,4 +1,4 @@
-# AWS Lambda Layer: Nokogiri
+# AWS Lambda Layer: HTTParty
 
 ## Build
 
