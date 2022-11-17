@@ -20,8 +20,7 @@ RSpec.describe LambdaFunction do
       it 'returns an array without stats' do
         res = lambda_handler(event: nil, context: nil)
         expect(res).to be_kind_of(Array)
-        expect(res.count).to eq(1)
-        expect(res[0]).to eq(%w(Date Opponent 3FGA 3FGM))
+        expect(res).to be_empty
       end
     end
 
@@ -31,12 +30,29 @@ RSpec.describe LambdaFunction do
       it 'returns an array with stats' do
         res = lambda_handler(event: nil, context: nil)
         expect(res).to be_kind_of(Array)
+        expect(res.count).to eq(3)
 
         aggregate_failures 'results' do
-          expect(res[0]).to eq(%w(Date Opponent 3FGA 3FGM))
-          expect(res[1]).to eq(['Nov 3, 2022', '@ORL', '15', '8'])
-          expect(res[2]).to eq(['Oct 23, 2022', 'vs SAC', '12', '7'])
-          expect(res[3]).to eq(['Oct 18, 2022', 'vs LAL', '13', '4'])
+          expect(res[0]).to eq({
+            'date' => 'Nov 3, 2022',
+            'opponent' => '@ORL',
+            '3fga' => '15',
+            '3fgm' => '8'
+          })
+
+          expect(res[1]).to eq({
+            'date' => 'Oct 23, 2022',
+            'opponent' => 'vs SAC',
+            '3fga' => '12',
+            '3fgm' => '7'
+          })
+
+          expect(res[2]).to eq({
+            'date' => 'Oct 18, 2022',
+            'opponent' => 'vs LAL',
+            '3fga' => '13',
+            '3fgm' => '4'
+          })
         end
       end
     end
