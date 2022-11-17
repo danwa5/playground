@@ -1,21 +1,27 @@
 require 'httparty'
 require 'nokogiri'
-require 'byebug'
 
 def lambda_handler(event:, context:)
   LambdaFunction.new.call(event: event, context: context)
 end
 
 class LambdaFunction
+  attr_reader :event
+
   def call(event:, context:)
-    url = 'https://www.cbssports.com/nba/players/1685204/stephen-curry/game-log/'
-    page = HTTParty.get(url)
+    @event = event
+
+    page = HTTParty.get(player_game_log_url)
     parsed_page = Nokogiri::HTML(page)
     table = parsed_page.css('.TableBase-table').last
 
     return false if table.nil?
 
-    parse_data(table)
+    player_data = parse_data(table)
+
+    puts player_data
+
+    player_data
   end
 
   private
@@ -48,5 +54,24 @@ class LambdaFunction
     end
 
     player_data
+  end
+
+  def player_name
+    event.fetch('player_name')
+  rescue
+    raise "The 'player_name' key in the event payload is required"
+  end
+
+  def player_game_log_mapping
+    {
+      'steph-curry' => 'https://www.cbssports.com/nba/players/1685204/stephen-curry/game-log/',
+      'klay-thompson' => 'https://www.cbssports.com/nba/players/1647559/klay-thompson/game-log/',
+    }
+  end
+
+  def player_game_log_url
+    player_game_log_mapping.fetch(player_name)
+  rescue
+    raise "Cannot find the game log URL for '#{player_name}'"
   end
 end
