@@ -1,9 +1,9 @@
 require_relative '../source/lambda_function'
 
 RSpec.describe LambdaFunction do
-  let(:event) do
-    { 'player_name' => 'steph-curry' }
-  end
+  let(:player_name) { 'steph-curry' }
+  let(:event) { { 'player_name' => player_name } }
+  let(:db_service) { double }
 
   describe '#call' do
     context 'when event is missing' do
@@ -54,43 +54,43 @@ RSpec.describe LambdaFunction do
       context 'and player stats are empty' do
         let(:page_source) { File.read('spec/fixtures/player_page_without_stats.html') }
 
-        it 'returns an array without stats' do
-          res = lambda_handler(event: event, context: nil)
-          expect(res).to be_kind_of(Array)
-          expect(res).to be_empty
+        it 'returns false' do
+          expect(lambda_handler(event: event, context: nil)).to eq(false)
         end
       end
 
       context 'and player stats are found' do
         let(:page_source) { File.read('spec/fixtures/player_page_with_stats.html') }
 
-        it 'returns an array with stats' do
-          res = lambda_handler(event: event, context: nil)
-          expect(res).to be_kind_of(Array)
-          expect(res.count).to eq(3)
+        it 'calls database service' do
+          expect(DatabaseService).to receive(:new).with(player_name).once.and_return(db_service)
 
-          aggregate_failures 'results' do
-            expect(res[0]).to eq({
-              'date' => '2022-11-03',
-              'opponent' => '@ORL',
-              '3fga' => '15',
-              '3fgm' => '8'
-            })
+          expect(db_service).to receive(:create_records).with(
+            [
+              {
+                'date' => '2022-10-18',
+                'opponent' => 'vs LAL',
+                '3fga' => '13',
+                '3fgm' => '4'
+              },
+              {
+                'date' => '2022-10-23',
+                'opponent' => 'vs SAC',
+                '3fga' => '12',
+                '3fgm' => '7'
+              },
+              {
+                'date' => '2022-11-03',
+                'opponent' => '@ORL',
+                '3fga' => '15',
+                '3fgm' => '8'
+              }
+            ]
+          ).once
 
-            expect(res[1]).to eq({
-              'date' => '2022-10-23',
-              'opponent' => 'vs SAC',
-              '3fga' => '12',
-              '3fgm' => '7'
-            })
-
-            expect(res[2]).to eq({
-              'date' => '2022-10-18',
-              'opponent' => 'vs LAL',
-              '3fga' => '13',
-              '3fgm' => '4'
-            })
-          end
+          expect {
+            lambda_handler(event: event, context: nil)
+          }.to_not raise_error
         end
       end
     end
