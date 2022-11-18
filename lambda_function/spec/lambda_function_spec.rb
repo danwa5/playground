@@ -71,21 +71,21 @@ RSpec.describe LambdaFunction do
 
           aggregate_failures 'results' do
             expect(res[0]).to eq({
-              'date' => 'Nov 3, 2022',
+              'date' => '2022-11-03',
               'opponent' => '@ORL',
               '3fga' => '15',
               '3fgm' => '8'
             })
 
             expect(res[1]).to eq({
-              'date' => 'Oct 23, 2022',
+              'date' => '2022-10-23',
               'opponent' => 'vs SAC',
               '3fga' => '12',
               '3fgm' => '7'
             })
 
             expect(res[2]).to eq({
-              'date' => 'Oct 18, 2022',
+              'date' => '2022-10-18',
               'opponent' => 'vs LAL',
               '3fga' => '13',
               '3fgm' => '4'

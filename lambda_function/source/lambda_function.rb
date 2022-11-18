@@ -46,7 +46,8 @@ class LambdaFunction
         game_data = {}
 
         column_mapping.each do |field, index|
-          game_data[field] = cells[index]
+          value = field == 'date' ? Date.parse(cells[index]).to_s : cells[index]
+          game_data[field] = value
         end
 
         player_data << game_data
