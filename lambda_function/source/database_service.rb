@@ -25,12 +25,15 @@ class DatabaseService
   private
 
   def create_record(game)
+    at_home, opponent = parse_opponent(game['opponent'])
+
     resp = dynamodb_client.put_item(
       table_name: dynamodb_table_name,
       item: {
         'player_name' => player_name,
         'game_date' => game['date'],
-        'opponent' => game['opponent'],
+        'opponent' => opponent,
+        'at_home' => at_home,
         'fg3a' => game['3fga'].to_i,
         'fg3m' => game['3fgm'].to_i
       }
@@ -39,6 +42,12 @@ class DatabaseService
     1
   rescue
     0
+  end
+
+  def parse_opponent(raw)
+    raise unless matched = raw.strip.match(/(@|vs)\s?([A-Z]{2,3})/i)
+
+    [matched[1].match?(/vs/), matched[2]]
   end
 
   def existing_records

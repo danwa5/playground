@@ -36,7 +36,7 @@ RSpec.describe DatabaseService do
       let(:player_data) do
         [
           { 'date'=>'2022-11-03', 'opponent'=>'BOS', '3fga'=>'17', '3fgm'=>'8' },
-          { 'date'=>'2022-11-05', 'opponent'=>'NYK', '3fga'=>'14', '3fgm'=>'10' }
+          { 'date'=>'2022-11-05', 'opponent'=>'@NY', '3fga'=>'14', '3fgm'=>'10' }
         ]
       end
 
@@ -49,7 +49,8 @@ RSpec.describe DatabaseService do
           item: {
             'player_name' => player_name,
             'game_date' => '2022-11-05',
-            'opponent' => 'NYK',
+            'opponent' => 'NY',
+            'at_home' => false,
             'fg3a' => 14,
             'fg3m' => 10
           }
@@ -63,8 +64,8 @@ RSpec.describe DatabaseService do
     context 'when player data does not exist in database' do
       let(:player_data) do
         [
-          { 'date'=>'2022-11-03', 'opponent'=>'BOS', '3fga'=>'17', '3fgm'=>'8' },
-          { 'date'=>'2022-11-05', 'opponent'=>'NYK', '3fga'=>'14', '3fgm'=>'10' }
+          { 'date'=>'2022-11-03', 'opponent'=>'vs BOS', '3fga'=>'17', '3fgm'=>'8' },
+          { 'date'=>'2022-11-05', 'opponent'=>'@NY', '3fga'=>'14', '3fgm'=>'10' }
         ]
       end
 
@@ -78,6 +79,7 @@ RSpec.describe DatabaseService do
             'player_name' => player_name,
             'game_date' => '2022-11-03',
             'opponent' => 'BOS',
+            'at_home' => true,
             'fg3a' => 17,
             'fg3m' => 8
           }
@@ -88,7 +90,8 @@ RSpec.describe DatabaseService do
           item: {
             'player_name' => player_name,
             'game_date' => '2022-11-05',
-            'opponent' => 'NYK',
+            'opponent' => 'NY',
+            'at_home' => false,
             'fg3a' => 14,
             'fg3m' => 10
           }
@@ -98,5 +101,12 @@ RSpec.describe DatabaseService do
         expect(res).to eq("#{player_name}: created 2 record(s).")
       end
     end
+  end
+
+  describe '#parse_opponent' do
+    it { expect(subject.send(:parse_opponent, '@SAC')).to eq([false, 'SAC']) }
+    it { expect(subject.send(:parse_opponent, '@ LAL')).to eq([false, 'LAL']) }
+    it { expect(subject.send(:parse_opponent, 'vs LAC')).to eq([true, 'LAC']) }
+    it { expect(subject.send(:parse_opponent, 'vsPOR')).to eq([true, 'POR']) }
   end
 end
