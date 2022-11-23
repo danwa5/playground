@@ -15,12 +15,9 @@ class LambdaFunction
     page = HTTParty.get(player_game_log_url)
     parsed_page = Nokogiri::HTML(page)
     table = parsed_page.css('.TableBase-table').last
-
-    return false if table.nil?
+    raise ParsingError, "[InternalServerError] Problem finding player data" if table.nil?
 
     player_data = parse_data(table)
-    return false if player_data.empty?
-
     database_service.create_records(player_data)
   end
 
@@ -60,7 +57,7 @@ class LambdaFunction
   def player_name
     event.fetch('player_name')
   rescue
-    raise "The 'player_name' key in the event payload is required"
+    raise ClientError, "[BadRequest] The 'player_name' key in the event payload is required"
   end
 
   def player_game_log_mapping
@@ -74,10 +71,13 @@ class LambdaFunction
   def player_game_log_url
     player_game_log_mapping.fetch(player_name)
   rescue
-    raise "Cannot find the game log URL for '#{player_name}'"
+    raise ClientError, "[BadRequest] '#{player_name}' is an invalid player name"
   end
 
   def database_service
     @database_service ||= DatabaseService.new(player_name)
   end
 end
+
+class ClientError < StandardError; end
+class ParsingError < StandardError; end

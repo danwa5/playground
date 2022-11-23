@@ -8,10 +8,10 @@ class DatabaseService
   end
 
   def create_records(player_data)
-    return false if player_data.empty?
+    return output_msg if player_data.empty?
 
     games = player_data.select { |g| !existing_records.include?(g['date']) }
-    return false if games.empty?
+    return output_msg if games.empty?
 
     records_created = 0
 
@@ -19,10 +19,14 @@ class DatabaseService
       records_created += create_record(game)
     end
 
-    "#{player_name}: created #{records_created} record(s)."
+    output_msg(records_created)
   end
 
   private
+
+  def output_msg(record_count = 0)
+    "#{player_name}: upserted #{record_count} record(s)"
+  end
 
   def create_record(game)
     at_home, opponent = parse_opponent(game['opponent'])

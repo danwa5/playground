@@ -14,8 +14,9 @@ RSpec.describe DatabaseService do
     context 'when player data is empty' do
       let(:player_data) { [] }
 
-      it 'returns false' do
-        expect(subject.create_records(player_data)).to eq(false)
+      it 'does not create any records' do
+        res = subject.create_records(player_data)
+        expect(res).to eq("#{player_name}: upserted 0 record(s)")
       end
     end
 
@@ -24,11 +25,12 @@ RSpec.describe DatabaseService do
         [ { 'date'=>'2022-11-03', 'opponent'=>'BOS', '3fga'=>'17', '3fgm'=>'8' } ]
       end
 
-      it 'returns false' do
+      it 'does not create any records' do
         query_results = double(items: [{ 'game_date' => '2022-11-03' }])
         expect(dynamodb_client).to receive(:query).once.and_return(query_results)
 
-        expect(subject.create_records(player_data)).to eq(false)
+        res = subject.create_records(player_data)
+        expect(res).to eq("#{player_name}: upserted 0 record(s)")
       end
     end
 
@@ -57,7 +59,7 @@ RSpec.describe DatabaseService do
         ).once.and_return(1)
 
         res = subject.create_records(player_data)
-        expect(res).to eq("#{player_name}: created 1 record(s).")
+        expect(res).to eq("#{player_name}: upserted 1 record(s)")
       end
     end
 
@@ -98,7 +100,7 @@ RSpec.describe DatabaseService do
         ).once.and_return(1)
 
         res = subject.create_records(player_data)
-        expect(res).to eq("#{player_name}: created 2 record(s).")
+        expect(res).to eq("#{player_name}: upserted 2 record(s)")
       end
     end
   end

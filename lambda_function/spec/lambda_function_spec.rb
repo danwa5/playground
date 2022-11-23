@@ -10,7 +10,7 @@ RSpec.describe LambdaFunction do
       it 'raises an error' do
         expect {
           lambda_handler(event: nil, context: nil)
-        }.to raise_error("The 'player_name' key in the event payload is required")
+        }.to raise_error(ClientError, "[BadRequest] The 'player_name' key in the event payload is required")
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe LambdaFunction do
       it 'raises an error' do
         expect {
           lambda_handler(event: event, context: nil)
-        }.to raise_error("The 'player_name' key in the event payload is required")
+        }.to raise_error(ClientError, "[BadRequest] The 'player_name' key in the event payload is required")
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe LambdaFunction do
       it 'raises an error' do
         expect {
           lambda_handler(event: event, context: nil)
-        }.to raise_error("Cannot find the game log URL for 'michael-jordan'")
+        }.to raise_error(ClientError, "[BadRequest] 'michael-jordan' is an invalid player name")
       end
     end
 
@@ -46,16 +46,10 @@ RSpec.describe LambdaFunction do
       context 'and player stats cannot be found' do
         let(:page_source) { '<html><body></body></html>' }
 
-        it 'returns false' do
-          expect(lambda_handler(event: event, context: nil)).to eq(false)
-        end
-      end
-
-      context 'and player stats are empty' do
-        let(:page_source) { File.read('spec/fixtures/player_page_without_stats.html') }
-
-        it 'returns false' do
-          expect(lambda_handler(event: event, context: nil)).to eq(false)
+        it 'raises an error' do
+          expect {
+            lambda_handler(event: event, context: nil)
+          }.to raise_error(ParsingError, "[InternalServerError] Problem finding player data")
         end
       end
 
