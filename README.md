@@ -21,16 +21,16 @@ SNS Notification for each player to a second [Data Scraper Lambda](lambda_functi
 The Data Scraper Lambda will then scrape game log data for a player from https://www.cbssports.com and store the
 data in DynamoDB.
 
-The second method utilizes a private API endpoint via AWS API Gateway. This allows an authenticated user
-to manually invoke the data scraping process for a player.
+The second method utilizes a private API endpoint via AWS API Gateway. This allows an authorized client to manually invoke the data scraping process for a player. When the client makes a request, the API Gateway uses a Lambda
+authorizer to check if the authentication token in the request is valid. If so, the authorizer generates a
+policy that grants the client access to the API endpoint and then executes the method. However, if the authentication token is invalid, the authorizer will deny the client access by returning a 403 HTTP status code.
 
 ```
 curl 'https://<YOUR-API-GATEWAY-ID>.execute-api.us-west-1.amazonaws.com/v1/scrape' \
   -X POST \
   -H 'Content-Type: application/json' \
-  -d '{"player_name":"steph-curry"}' \
-  --user <USER-TOKEN> \
-  --aws-sigv4 "aws:amz:us-west-1:execute-api"
+  -H 'Authorization: <AUTH-TOKEN>'
+  -d '{"player_name":"steph-curry"}'
 ```
 
 ## Fetch Data
