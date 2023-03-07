@@ -10,7 +10,7 @@ class DatabaseService
       last_game = find_player_last_game(player)
 
       # update player's season 3pt totals
-      player = update_player_3pt_totals(player, last_game)
+      player = update_season_3pt_totals(player, last_game)
 
       puts "Upserting record for #{player['player_name']}"
       records_created += create_record(player)
@@ -25,11 +25,10 @@ class DatabaseService
     "Upserted #{record_count} record(s)"
   end
 
-  def update_player_3pt_totals(player, last_game)
-    cumulative_fg3a, cumulative_fg3m = current_3pt_totals(last_game)
-
-    cumulative_fg3a += player['fg3a'] || 0
-    cumulative_fg3m += player['fg3m'] || 0
+  def update_season_3pt_totals(player, last_game)
+    cumulative_fg3m, cumulative_fg3a = current_season_3pt_totals(last_game)
+    cumulative_fg3m += (player['fg3m'] || 0).to_i
+    cumulative_fg3a += (player['fg3a'] || 0).to_i
 
     player.merge(
       'cumulative_fg3a' => cumulative_fg3a,
@@ -37,10 +36,10 @@ class DatabaseService
     )
   end
 
-  def current_3pt_totals(game)
-    [(game['cumulative_fg3a'] || 0), (game['cumulative_fg3m'] || 0)]
-  rescue
-    [0, 0]
+  def current_season_3pt_totals(game)
+    return [0, 0] if game.nil?
+
+    [(game['cumulative_fg3m'] || 0).to_i, (game['cumulative_fg3a'] || 0).to_i]
   end
 
   def find_player_last_game(player)
@@ -53,7 +52,7 @@ class DatabaseService
         ":player_id" => player['player_id'],
       },
       scan_index_forward: false,
-      projection_expression: 'game_date_player_uid, player_id, player_name, cumulative_fg3a, cumulative_fg3m'
+      projection_expression: 'game_date_player_uid, game_date, player_id, player_name, cumulative_fg3a, cumulative_fg3m'
     )
 
     resp.items.empty? ? nil : resp.items.first
@@ -65,6 +64,9 @@ class DatabaseService
       item: {
         'team' => player['team'],
         'game_date_player_uid' => "#{player['game_date']}##{player['player_id']}",
+        'game_date_cumulative_fg3a' => "#{player['game_date']}##{zero_pad_num(player['cumulative_fg3a'])}",
+        'game_date_cumulative_fg3m' => "#{player['game_date']}##{zero_pad_num(player['cumulative_fg3m'])}",
+        'game_date' => player['game_date'],
         'player_id' => player['player_id'],
         'player_name' => player['player_name'],
         'opponent' => player['opponent'],
@@ -79,6 +81,10 @@ class DatabaseService
     1
   rescue
     0
+  end
+
+  def zero_pad_num(num)
+    "%04d" % num
   end
 
   def dynamodb_table_name

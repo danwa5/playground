@@ -30,8 +30,18 @@ RSpec.describe DatabaseService do
             'fg3a' => 13,
           },
           {
-            'team' => 'LAL',
+            'team' => 'GS',
             'player_id' => '456',
+            'player_name' => 'Klay Thompson',
+            'game_date' => '2022-10-18',
+            'opponent' => 'LAL',
+            'at_home' => true,
+            'fg3m' => 0,
+            'fg3a' => 0,
+          },
+          {
+            'team' => 'LAL',
+            'player_id' => '789',
             'player_name' => 'Lebron James',
             'game_date' => '2022-10-18',
             'opponent' => 'GS',
@@ -51,6 +61,9 @@ RSpec.describe DatabaseService do
             item: {
               'team' => 'GS',
               'game_date_player_uid' => '2022-10-18#123',
+              'game_date_cumulative_fg3a' => '2022-10-18#0013',
+              'game_date_cumulative_fg3m' => '2022-10-18#0004',
+              'game_date' => '2022-10-18',
               'player_id' => '123',
               'player_name' => 'Steph Curry',
               'opponent' => 'LAL',
@@ -65,9 +78,31 @@ RSpec.describe DatabaseService do
           expect(dynamodb_client).to receive(:put_item).with(
             table_name: 'player-game-stats',
             item: {
-              'team' => 'LAL',
+              'team' => 'GS',
               'game_date_player_uid' => '2022-10-18#456',
+              'game_date_cumulative_fg3a' => '2022-10-18#0000',
+              'game_date_cumulative_fg3m' => '2022-10-18#0000',
+              'game_date' => '2022-10-18',
               'player_id' => '456',
+              'player_name' => 'Klay Thompson',
+              'opponent' => 'LAL',
+              'at_home' => true,
+              'fg3a' => 0,
+              'fg3m' => 0,
+              'cumulative_fg3a' => 0,
+              'cumulative_fg3m' => 0,
+            }
+          ).once.and_return(1)
+
+          expect(dynamodb_client).to receive(:put_item).with(
+            table_name: 'player-game-stats',
+            item: {
+              'team' => 'LAL',
+              'game_date_player_uid' => '2022-10-18#789',
+              'game_date_cumulative_fg3a' => '2022-10-18#0000',
+              'game_date_cumulative_fg3m' => '2022-10-18#0000',
+              'game_date' => '2022-10-18',
+              'player_id' => '789',
               'player_name' => 'Lebron James',
               'opponent' => 'GS',
               'at_home' => false,
@@ -79,22 +114,26 @@ RSpec.describe DatabaseService do
           ).once.and_return(1)
 
           res = subject.create_records(boxscore_data)
-          expect(res).to eq("Upserted 2 record(s)")
+          expect(res).to eq("Upserted 3 record(s)")
         end
       end
 
       context 'and players have existing data in database' do
         let(:query_results_1) { double(items: [{ 'cumulative_fg3a' => 10, 'cumulative_fg3m' => 5}]) }
         let(:query_results_2) { double(items: [{ 'cumulative_fg3a' => 2, 'cumulative_fg3m' => 1}]) }
+        let(:query_results_3) { double(items: [{ 'cumulative_fg3a' => 0, 'cumulative_fg3m' => 0}]) }
 
         it 'creates records' do
-          allow(dynamodb_client).to receive(:query).and_return(query_results_1, query_results_2)
+          allow(dynamodb_client).to receive(:query).and_return(query_results_1, query_results_2, query_results_3)
 
           expect(dynamodb_client).to receive(:put_item).with(
             table_name: 'player-game-stats',
             item: {
               'team' => 'GS',
               'game_date_player_uid' => '2022-10-18#123',
+              'game_date_cumulative_fg3a' => '2022-10-18#0023',
+              'game_date_cumulative_fg3m' => '2022-10-18#0009',
+              'game_date' => '2022-10-18',
               'player_id' => '123',
               'player_name' => 'Steph Curry',
               'opponent' => 'LAL',
@@ -109,21 +148,43 @@ RSpec.describe DatabaseService do
           expect(dynamodb_client).to receive(:put_item).with(
             table_name: 'player-game-stats',
             item: {
-              'team' => 'LAL',
+              'team' => 'GS',
               'game_date_player_uid' => '2022-10-18#456',
+              'game_date_cumulative_fg3a' => '2022-10-18#0002',
+              'game_date_cumulative_fg3m' => '2022-10-18#0001',
+              'game_date' => '2022-10-18',
               'player_id' => '456',
-              'player_name' => 'Lebron James',
-              'opponent' => 'GS',
-              'at_home' => false,
-              'fg3a' => nil,
-              'fg3m' => nil,
+              'player_name' => 'Klay Thompson',
+              'opponent' => 'LAL',
+              'at_home' => true,
+              'fg3a' => 0,
+              'fg3m' => 0,
               'cumulative_fg3a' => 2,
               'cumulative_fg3m' => 1,
             }
           ).once.and_return(1)
 
+          expect(dynamodb_client).to receive(:put_item).with(
+            table_name: 'player-game-stats',
+            item: {
+              'team' => 'LAL',
+              'game_date_player_uid' => '2022-10-18#789',
+              'game_date_cumulative_fg3a' => '2022-10-18#0000',
+              'game_date_cumulative_fg3m' => '2022-10-18#0000',
+              'game_date' => '2022-10-18',
+              'player_id' => '789',
+              'player_name' => 'Lebron James',
+              'opponent' => 'GS',
+              'at_home' => false,
+              'fg3a' => nil,
+              'fg3m' => nil,
+              'cumulative_fg3a' => 0,
+              'cumulative_fg3m' => 0,
+            }
+          ).once.and_return(1)
+
           res = subject.create_records(boxscore_data)
-          expect(res).to eq("Upserted 2 record(s)")
+          expect(res).to eq("Upserted 3 record(s)")
         end
       end
     end
