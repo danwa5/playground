@@ -70,6 +70,7 @@ RSpec.describe DatabaseService do
               'at_home' => true,
               'fg3a' => 13,
               'fg3m' => 4,
+              'games_played' => 1,
               'cumulative_fg3a' => 13,
               'cumulative_fg3m' => 4,
             }
@@ -89,6 +90,7 @@ RSpec.describe DatabaseService do
               'at_home' => true,
               'fg3a' => 0,
               'fg3m' => 0,
+              'games_played' => 1,
               'cumulative_fg3a' => 0,
               'cumulative_fg3m' => 0,
             }
@@ -108,6 +110,7 @@ RSpec.describe DatabaseService do
               'at_home' => false,
               'fg3a' => nil,
               'fg3m' => nil,
+              'games_played' => 0,
               'cumulative_fg3a' => 0,
               'cumulative_fg3m' => 0,
             }
@@ -119,9 +122,9 @@ RSpec.describe DatabaseService do
       end
 
       context 'and players have existing data in database' do
-        let(:query_results_1) { double(items: [{ 'cumulative_fg3a' => 10, 'cumulative_fg3m' => 5}]) }
-        let(:query_results_2) { double(items: [{ 'cumulative_fg3a' => 2, 'cumulative_fg3m' => 1}]) }
-        let(:query_results_3) { double(items: [{ 'cumulative_fg3a' => 0, 'cumulative_fg3m' => 0}]) }
+        let(:query_results_1) { double(items: [{ 'cumulative_fg3a' => 10, 'cumulative_fg3m' => 5, 'games_played' => 1 }]) }
+        let(:query_results_2) { double(items: [{ 'cumulative_fg3a' => 2, 'cumulative_fg3m' => 1, 'games_played' => 1 }]) }
+        let(:query_results_3) { double(items: [{ 'cumulative_fg3a' => 0, 'cumulative_fg3m' => 0, 'games_played' => 0 }]) }
 
         it 'creates records' do
           allow(dynamodb_client).to receive(:query).and_return(query_results_1, query_results_2, query_results_3)
@@ -140,6 +143,7 @@ RSpec.describe DatabaseService do
               'at_home' => true,
               'fg3a' => 13,
               'fg3m' => 4,
+              'games_played' => 2,
               'cumulative_fg3a' => 23,
               'cumulative_fg3m' => 9,
             }
@@ -159,6 +163,7 @@ RSpec.describe DatabaseService do
               'at_home' => true,
               'fg3a' => 0,
               'fg3m' => 0,
+              'games_played' => 2,
               'cumulative_fg3a' => 2,
               'cumulative_fg3m' => 1,
             }
@@ -178,6 +183,7 @@ RSpec.describe DatabaseService do
               'at_home' => false,
               'fg3a' => nil,
               'fg3m' => nil,
+              'games_played' => 0,
               'cumulative_fg3a' => 0,
               'cumulative_fg3m' => 0,
             }

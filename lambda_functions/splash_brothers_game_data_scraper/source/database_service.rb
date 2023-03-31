@@ -9,8 +9,8 @@ class DatabaseService
     boxscore_data.each do |player|
       last_game = find_player_last_game(player)
 
-      # update player's season 3pt totals
-      player = update_season_3pt_totals(player, last_game)
+      # update player's season games played and 3pt totals
+      player = update_season_totals(player, last_game)
 
       puts "Upserting record for #{player['player_name']}"
       records_created += create_record(player)
@@ -25,15 +25,26 @@ class DatabaseService
     "Upserted #{record_count} record(s)"
   end
 
-  def update_season_3pt_totals(player, last_game)
+  def update_season_totals(player, last_game)
+    # get season totals from last game
+    games_played = current_season_games_played(last_game)
     cumulative_fg3m, cumulative_fg3a = current_season_3pt_totals(last_game)
+
+    games_played += (player['fg3a'].nil? ? 0 : 1)
     cumulative_fg3m += (player['fg3m'] || 0).to_i
     cumulative_fg3a += (player['fg3a'] || 0).to_i
 
     player.merge(
+      'games_played' => games_played,
       'cumulative_fg3a' => cumulative_fg3a,
       'cumulative_fg3m' => cumulative_fg3m
     )
+  end
+
+  def current_season_games_played(game)
+    return 0 if game.nil?
+
+    (game['games_played'] || 0).to_i
   end
 
   def current_season_3pt_totals(game)
@@ -52,7 +63,7 @@ class DatabaseService
         ":player_id" => player['player_id'],
       },
       scan_index_forward: false,
-      projection_expression: 'game_date_player_uid, game_date, player_id, player_name, cumulative_fg3a, cumulative_fg3m'
+      projection_expression: 'game_date_player_uid, game_date, player_id, player_name, games_played, cumulative_fg3a, cumulative_fg3m'
     )
 
     resp.items.empty? ? nil : resp.items.first
@@ -73,6 +84,7 @@ class DatabaseService
         'at_home' => player['at_home'],
         'fg3a' => player['fg3a'],
         'fg3m' => player['fg3m'],
+        'games_played' => player['games_played'],
         'cumulative_fg3a' => player['cumulative_fg3a'],
         'cumulative_fg3m' => player['cumulative_fg3m']
       }
