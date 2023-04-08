@@ -9,6 +9,9 @@ class DatabaseService
     boxscore_data.each do |player|
       last_game = find_player_last_game(player)
 
+      # skip if player's game log already exists in db
+      next if last_game && last_game['game_date'] == player['game_date']
+
       # update player's season games played and 3pt totals
       player = update_season_totals(player, last_game)
 
