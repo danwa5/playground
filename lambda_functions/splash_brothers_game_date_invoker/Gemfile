@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+group :test do
+  gem 'aws-sdk-sns'
+  gem 'byebug'
+  gem 'dotenv'
+  gem 'httparty'
+  gem 'nokogiri'
+  gem 'rspec'
+end
