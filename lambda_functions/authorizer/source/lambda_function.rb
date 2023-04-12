@@ -11,7 +11,7 @@ class LambdaFunction
     @event = event
 
     digest = ::Digest::SHA2.hexdigest(ENV['SHARED_SECRET_KEY'].to_s)
-    authorization = event['headers']['authorization'].to_s
+    authorization = event['headers']['Authorization'].to_s
     permission = authorization == digest ? 'Allow' : 'Deny'
 
     {

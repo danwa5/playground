@@ -7,7 +7,7 @@ RSpec.describe LambdaFunction do
     {
       'methodArn' => method_arn,
       'headers' => {
-        'authorization' => auth_token
+        'Authorization' => auth_token
       }
     }
   end
