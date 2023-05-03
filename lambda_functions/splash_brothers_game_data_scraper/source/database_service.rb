@@ -9,8 +9,8 @@ class DatabaseService
     boxscore_data.each do |player|
       last_game = find_player_last_game(player)
 
-      # skip if player's game log already exists in db
-      next if last_game && last_game['game_date'] == player['game_date']
+      # skip if player's game date already exists in db or is prior to last game
+      next if game_date_invalid?(player, last_game)
 
       # update player's season games played and 3pt totals
       player = update_season_totals(player, last_game)
@@ -23,6 +23,16 @@ class DatabaseService
   end
 
   private
+
+  # all games for a team should be processed in chronological order
+  def game_date_invalid?(player, last_game)
+    return false if last_game.nil?
+
+    game_date = Date.parse(player['game_date'])
+    last_game_date = Date.parse(last_game['game_date'])
+
+    game_date <= last_game_date
+  end
 
   def output_msg(record_count = 0)
     "Upserted #{record_count} record(s)"

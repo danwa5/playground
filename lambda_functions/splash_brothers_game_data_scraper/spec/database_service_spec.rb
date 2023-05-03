@@ -121,10 +121,25 @@ RSpec.describe DatabaseService do
         end
       end
 
-      context 'and players game logs exist in database' do
+      context 'and players game date is the same date as the last game in database' do
         let(:query_results_1) { double(items: [{ 'game_date' => '2022-10-18', 'cumulative_fg3a' => 10, 'cumulative_fg3m' => 5, 'games_played' => 1 }]) }
         let(:query_results_2) { double(items: [{ 'game_date' => '2022-10-18', 'cumulative_fg3a' => 2, 'cumulative_fg3m' => 1, 'games_played' => 1 }]) }
         let(:query_results_3) { double(items: [{ 'game_date' => '2022-10-18', 'cumulative_fg3a' => 0, 'cumulative_fg3m' => 0, 'games_played' => 0 }]) }
+
+        it 'does not create any records' do
+          allow(dynamodb_client).to receive(:query).and_return(query_results_1, query_results_2, query_results_3)
+
+          expect(dynamodb_client).not_to receive(:put_item)
+
+          res = subject.create_records(boxscore_data)
+          expect(res).to eq("Upserted 0 record(s)")
+        end
+      end
+
+      context 'and players game date is prior to last game in database' do
+        let(:query_results_1) { double(items: [{ 'game_date' => '2022-10-19', 'cumulative_fg3a' => 10, 'cumulative_fg3m' => 5, 'games_played' => 1 }]) }
+        let(:query_results_2) { double(items: [{ 'game_date' => '2022-10-19', 'cumulative_fg3a' => 2, 'cumulative_fg3m' => 1, 'games_played' => 1 }]) }
+        let(:query_results_3) { double(items: [{ 'game_date' => '2022-10-19', 'cumulative_fg3a' => 0, 'cumulative_fg3m' => 0, 'games_played' => 0 }]) }
 
         it 'does not create any records' do
           allow(dynamodb_client).to receive(:query).and_return(query_results_1, query_results_2, query_results_3)
