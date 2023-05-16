@@ -1,0 +1,669 @@
+<html>
+  <body>
+    <div id="game-data-container" class="game-data-container hud-table" data-js="hud-react">
+      <div>
+        <div class="hud-table-column"><!-- column group 1: Away Team --></div>
+        <div class="hud-table-column"><!-- column group 2: Away Team Logo + Money Line--></div>
+        <div class="hud-table-column"><!-- column group 3: Away Team Score (in-game/post-game) --></div>
+        <div class="hud-table-column"><!-- column group 4: Game Status + Odds --></div>
+        <div class="hud-table-column"><!-- column group 5: Home Team Score (in-game/post-game) --></div>
+        <div class="hud-table-column"><!-- column group 6: Home Team Logo + Money Line --></div>
+        <div class="hud-table-column"><!-- column group 7: Home Team --></div>
+        <div class="hud-table-row">
+          <div class="hud-table-cell team-name-container away">
+            <div class="abbr">
+              LAL
+            </div>
+            <div class="city">
+              <a href="/nba/teams/LAL/los-angeles-lakers/" target="_blank">
+                Los Angeles
+              </a>
+            </div>
+            <div class="nickname">
+              <a href="/nba/teams/LAL/los-angeles-lakers/" target="_blank">
+                Lakers
+              </a>
+            </div>
+            <div class="to-container timeout-0">
+              <div class="to-group">
+                <span class="icon-moon-round-unchecked timeout-one-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-one-on"></span>
+                <span class="icon-moon-round-unchecked timeout-two-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-two-on"></span>
+                <span class="icon-moon-round-unchecked timeout-three-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-three-on"></span>
+                <span class="icon-moon-round-unchecked timeout-four-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-four-on"></span>
+                <span class="icon-moon-round-unchecked timeout-five-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-five-on"></span>
+                <span class="icon-moon-round-unchecked timeout-six-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-six-on"></span>
+                <span class="icon-moon-round-unchecked timeout-seven-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-seven-on"></span>
+              </div>
+            </div>
+            <div class="team-record away">0-1</div>
+          </div>
+          <div class="hud-table-cell team-logo-container away">
+            <div class="TeamLogo TeamLogo--largest">
+              <a href="/nba/teams/LAL/los-angeles-lakers/">
+                <figure class="img">
+                  <img class="TeamLogo-image" alt="away team logo" data-lazy="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/light/345.svg" src="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/light/345.svg" />
+                </figure>
+              </a>
+            </div>
+          </div>
+          <div class="hud-table-cell team-score-container away">
+            <div class="score-text">109</div>
+            <div class="team-fouls away">TF 2</div>
+          </div>
+          <div class="hud-table-cell center-content-container" data-component="formatDatetime">
+            <div class="final">
+              <div class="win away">
+                <div class="win-icon"><span class="icon-moon-caret-left"></span></div>
+              </div>
+              <div class="final-text">FINAL</div>
+              <div class="win home active">
+                <div class="win-icon"><span class="icon-moon-caret-right"></span></div>
+              </div>
+            </div>
+            <div class="quarter">End</div>
+            <div class="time-and-pos">
+              <div class="time">4th</div>
+            </div>
+            <div class="tv">TNT</div>
+            <div class="gamedate" data-format-datetime='{"value": "1666147200", "format": "E MMM. d"}'>
+              <span class="formatter"><span class="formatter-weekday short">Tue</span> <span class="formatter-month short">Oct</span>. 18</span>
+            </div>
+            <div class="gametime" data-format-datetime='{"value": "1666147200", "format": "h:mmA"}'><span class="formatter">7:40P</span></div>
+
+            <div class="bonus-container away double-none">
+              <div class="bonus-item away on"><span class="icon-moon-round-unchecked"></span></div>
+              <div class="bonus-item away off"><span class="icon-moon-hollow-circle"></span></div>
+              <div class="bonus-label">BONUS</div>
+              <div class="bonus-item home on"><span class="icon-moon-round-unchecked"></span></div>
+              <div class="bonus-item home off"><span class="icon-moon-hollow-circle"></span></div>
+            </div>
+          </div>
+          <div class="hud-table-cell team-score-container home">
+            <div class="score-text">123</div>
+            <div class="team-fouls home">TF 5</div>
+          </div>
+          <div class="hud-table-cell team-logo-container home">
+            <div class="TeamLogo TeamLogo--largest">
+              <a href="/nba/teams/GS/golden-state-warriors/">
+                <figure class="img">
+                  <img class="TeamLogo-image" alt="home team logo" data-lazy="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/light/341.svg" src="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/light/341.svg" />
+                </figure>
+              </a>
+            </div>
+          </div>
+          <div class="hud-table-cell team-name-container home">
+            <div class="abbr">
+              GS
+            </div>
+            <div class="city">
+              <a href="/nba/teams/GS/golden-state-warriors/" target="_blank">
+                Golden State
+              </a>
+            </div>
+            <div class="nickname">
+              <a href="/nba/teams/GS/golden-state-warriors/" target="_blank">
+                Warriors
+              </a>
+            </div>
+            <div class="to-container timeout-2">
+              <div class="to-group">
+                <span class="icon-moon-round-unchecked timeout-one-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-one-on"></span>
+                <span class="icon-moon-round-unchecked timeout-two-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-two-on"></span>
+                <span class="icon-moon-round-unchecked timeout-three-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-three-on"></span>
+                <span class="icon-moon-round-unchecked timeout-four-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-four-on"></span>
+                <span class="icon-moon-round-unchecked timeout-five-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-five-on"></span>
+                <span class="icon-moon-round-unchecked timeout-six-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-six-on"></span>
+                <span class="icon-moon-round-unchecked timeout-seven-off off"></span>
+                <span class="icon-moon-round-unchecked timeout-seven-on"></span>
+              </div>
+            </div>
+            <div class="team-record home">
+              1-0
+            </div>
+          </div>
+        </div>
+        <div class="hud-table-row">
+          <div class="hud-table-cell">
+            <!-- EMPTY COLUMN 1 -->
+          </div>
+          <div class="hud-table-cell">
+            <div class="hud-odds">
+              ML:&nbsp;+250
+            </div>
+          </div>
+          <div class="hud-table-cell team-score-container">
+            <!-- EMPTY COLUMN 3: display for score cell based on game state -->
+          </div>
+          <div class="hud-table-cell">
+            <div class="hud-odds">
+              <div class="BettingOddsDisplay">
+                GS -7.5, O/U 223.5
+              </div>
+            </div>
+          </div>
+          <div class="hud-table-cell team-score-container">
+            <!-- EMPTY COLUMN 5: display for score cell based on game state-->
+          </div>
+          <div class="hud-table-cell">
+            <div class="hud-odds">
+              ML:&nbsp;-320
+            </div>
+          </div>
+          <div class="hud-table-cell">
+            <!-- EMPTY COLUMN 7-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="player-stats-away" class="player-stats-item-container away-team offense boxscore expanded">
+      <div class="stats-nav">
+        <div class="team-logo">
+          <div class="TeamLogo TeamLogo--xsmall">
+            <a href="/nba/teams/LAL/los-angeles-lakers/">
+              <figure class="img"><img class="TeamLogo-image" alt="team logo" data-lazy="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/345.svg" src="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/345.svg" /></figure>
+            </a>
+          </div>
+        </div>
+        <div class="team-name">
+          <a href="/nba/teams/LAL/los-angeles-lakers/" target="_blank">
+            Lakers
+          </a>
+        </div>
+      </div>
+      <div class="starters-stats">
+        <div class="names-overlay">
+          <table class="stats-table"></table>
+        </div>
+        <div class="stats-viewable-area">
+          <table class="stats-table">
+            <tbody>
+              <tr class="header-row">
+                <td class="name-element">Starters</td>
+                <td class="number-element">PTS</td>
+                <td class="number-element">REB</td>
+                <td class="number-element">AST</td>
+                <td class="number-element expanded">FG</td>
+                <td class="number-element expanded">3PT</td>
+                <td class="number-element expanded">FT</td>
+                <td class="number-element">PF</td>
+                <td class="number-element hide-on-narrow">MIN</td>
+                <td class="number-element expanded">STL</td>
+                <td class="number-element expanded">BLK</td>
+                <td class="number-element expanded">TO</td>
+                <td class="number-element for-mobile">OREB</td>
+                <td class="number-element for-mobile">DREB</td>
+                <td class="number-element expanded">+/-</td>
+                <td class="number-element expanded">FPTS</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/400553/lebron-james/" target="_blank">L. James</a>
+                </td>
+                <td class="number-element">31</td>
+                <td class="number-element">14</td>
+                <td class="number-element">8</td>
+                <td class="number-element expanded">12/25</td>
+                <td class="number-element expanded">3/10</td>
+                <td class="number-element expanded">4/4</td>
+                <td class="number-element">2</td>
+                <td class="number-element hide-on-narrow">35</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">5</td>
+                <td class="number-element for-mobile">4</td>
+                <td class="number-element for-mobile">10</td>
+                <td class="number-element expanded">-10</td>
+                <td class="number-element expanded">56</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/1622555/russell-westbrook/" target="_blank">R. Westbrook</a>
+                </td>
+                <td class="number-element">19</td>
+                <td class="number-element">11</td>
+                <td class="number-element">3</td>
+                <td class="number-element expanded">7/12</td>
+                <td class="number-element expanded">1/3</td>
+                <td class="number-element expanded">4/5</td>
+                <td class="number-element">1</td>
+                <td class="number-element hide-on-narrow">30</td>
+                <td class="number-element expanded">1</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element for-mobile">1</td>
+                <td class="number-element for-mobile">10</td>
+                <td class="number-element expanded">-6</td>
+                <td class="number-element expanded">33</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="court-stats">
+        <div class="names-overlay">
+          <table class="stats-table"></table>
+        </div>
+        <div class="stats-viewable-area">
+          <table class="stats-table">
+            <tbody>
+              <tr class="header-row">
+                <td class="name-element">Starters</td>
+                <td class="number-element">PTS</td>
+                <td class="number-element">REB</td>
+                <td class="number-element">AST</td>
+                <td class="number-element expanded">FG</td>
+                <td class="number-element expanded">3PT</td>
+                <td class="number-element expanded">FT</td>
+                <td class="number-element">PF</td>
+                <td class="number-element hide-on-narrow">MIN</td>
+                <td class="number-element expanded">STL</td>
+                <td class="number-element expanded">BLK</td>
+                <td class="number-element expanded">TO</td>
+                <td class="number-element for-mobile">OREB</td>
+                <td class="number-element for-mobile">DREB</td>
+                <td class="number-element expanded">+/-</td>
+                <td class="number-element expanded">FPTS</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/400553/lebron-james/" target="_blank">L. James</a>
+                </td>
+                <td class="number-element">31</td>
+                <td class="number-element">14</td>
+                <td class="number-element">8</td>
+                <td class="number-element expanded">12/25</td>
+                <td class="number-element expanded">3/10</td>
+                <td class="number-element expanded">4/4</td>
+                <td class="number-element">2</td>
+                <td class="number-element hide-on-narrow">35</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">5</td>
+                <td class="number-element for-mobile">4</td>
+                <td class="number-element for-mobile">10</td>
+                <td class="number-element expanded">-10</td>
+                <td class="number-element expanded">56</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/1622555/russell-westbrook/" target="_blank">R. Westbrook</a>
+                </td>
+                <td class="number-element">19</td>
+                <td class="number-element">11</td>
+                <td class="number-element">3</td>
+                <td class="number-element expanded">7/12</td>
+                <td class="number-element expanded">1/3</td>
+                <td class="number-element expanded">4/5</td>
+                <td class="number-element">1</td>
+                <td class="number-element hide-on-narrow">30</td>
+                <td class="number-element expanded">1</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element for-mobile">1</td>
+                <td class="number-element for-mobile">10</td>
+                <td class="number-element expanded">-6</td>
+                <td class="number-element expanded">33</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bench-stats">
+        <div class="names-overlay">
+          <table class="stats-table"></table>
+        </div>
+        <div class="stats-viewable-area">
+          <table class="stats-table">
+            <tbody>
+              <tr class="header-row">
+                <td class="name-element">Bench</td>
+                <td class="number-element">PTS</td>
+                <td class="number-element">REB</td>
+                <td class="number-element">AST</td>
+                <td class="number-element expanded">FG</td>
+                <td class="number-element expanded">3PT</td>
+                <td class="number-element expanded">FT</td>
+                <td class="number-element">PF</td>
+                <td class="number-element hide-on-narrow">MIN</td>
+                <td class="number-element expanded">STL</td>
+                <td class="number-element expanded">BLK</td>
+                <td class="number-element expanded">TO</td>
+                <td class="number-element for-mobile">OREB</td>
+                <td class="number-element for-mobile">DREB</td>
+                <td class="number-element expanded">+/-</td>
+                <td class="number-element expanded">FPTS</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/2268681/austin-reaves/" target="_blank">A. Reaves</a>
+                </td>
+                <td class="number-element">3</td>
+                <td class="number-element">0</td>
+                <td class="number-element">1</td>
+                <td class="number-element expanded">1/3</td>
+                <td class="number-element expanded">0/2</td>
+                <td class="number-element expanded">1/1</td>
+                <td class="number-element">1</td>
+                <td class="number-element hide-on-narrow">16</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element for-mobile">0</td>
+                <td class="number-element for-mobile">0</td>
+                <td class="number-element expanded">-6</td>
+                <td class="number-element expanded">5</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/2067702/dennis-schroder/" target="_blank">D. Schroder</a>
+                </td>
+                <td class="number-element">-</td>
+                <td class="number-element">-</td>
+                <td class="number-element">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element">-</td>
+                <td class="number-element hide-on-narrow">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element for-mobile">-</td>
+                <td class="number-element for-mobile">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+              </tr>
+
+              <tr class="total-row">
+                <td class="name-element">Total</td>
+                <td class="number-element">109</td>
+                <td class="number-element">47</td>
+                <td class="number-element">23</td>
+                <td class="number-element expanded">40/93</td>
+                <td class="number-element expanded">10/40</td>
+                <td class="number-element expanded">19/25</td>
+                <td class="number-element">18</td>
+                <td class="number-element hide-on-narrow">233</td>
+                <td class="number-element expanded">12</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element expanded">21</td>
+                <td class="number-element for-mobile">8</td>
+                <td class="number-element for-mobile">39</td>
+                <td class="number-element expanded">-70</td>
+                <td class="number-element expanded">197</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="player-stats-home" class="player-stats-item-container home-team offense boxscore expanded">
+      <div class="stats-nav">
+        <div class="team-logo">
+          <div class="TeamLogo TeamLogo--xsmall">
+            <a href="/nba/teams/GS/golden-state-warriors/">
+              <figure class="img"><img class="TeamLogo-image" alt="team logo" data-lazy="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/341.svg" src="https://sports.cbsimg.net/fly/images/nba/logos/team/alt/341.svg" /></figure>
+            </a>
+          </div>
+        </div>
+        <div class="team-name">
+          <a href="/nba/teams/GS/golden-state-warriors/" target="_blank">
+            Warriors
+          </a>
+        </div>
+      </div>
+      <div class="starters-stats">
+        <div class="names-overlay">
+          <table class="stats-table"></table>
+        </div>
+        <div class="stats-viewable-area">
+          <table class="stats-table">
+            <tbody>
+              <tr class="header-row">
+                <td class="name-element">Starters</td>
+                <td class="number-element">PTS</td>
+                <td class="number-element">REB</td>
+                <td class="number-element">AST</td>
+                <td class="number-element expanded">FG</td>
+                <td class="number-element expanded">3PT</td>
+                <td class="number-element expanded">FT</td>
+                <td class="number-element">PF</td>
+                <td class="number-element hide-on-narrow">MIN</td>
+                <td class="number-element expanded">STL</td>
+                <td class="number-element expanded">BLK</td>
+                <td class="number-element expanded">TO</td>
+                <td class="number-element for-mobile">OREB</td>
+                <td class="number-element for-mobile">DREB</td>
+                <td class="number-element expanded">+/-</td>
+                <td class="number-element expanded">FPTS</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/1685204/stephen-curry/" target="_blank">S. Curry</a>
+                </td>
+                <td class="number-element">33</td>
+                <td class="number-element">6</td>
+                <td class="number-element">7</td>
+                <td class="number-element expanded">10/22</td>
+                <td class="number-element expanded">4/13</td>
+                <td class="number-element expanded">9/9</td>
+                <td class="number-element">1</td>
+                <td class="number-element hide-on-narrow">32</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element expanded">1</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element for-mobile">1</td>
+                <td class="number-element for-mobile">5</td>
+                <td class="number-element expanded">+20</td>
+                <td class="number-element expanded">54</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/1647559/klay-thompson/" target="_blank">K. Thompson</a>
+                </td>
+                <td class="number-element">18</td>
+                <td class="number-element">2</td>
+                <td class="number-element">3</td>
+                <td class="number-element expanded">6/13</td>
+                <td class="number-element expanded">2/6</td>
+                <td class="number-element expanded">4/5</td>
+                <td class="number-element">3</td>
+                <td class="number-element hide-on-narrow">19</td>
+                <td class="number-element expanded">1</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">2</td>
+                <td class="number-element for-mobile">0</td>
+                <td class="number-element for-mobile">2</td>
+                <td class="number-element expanded">+11</td>
+                <td class="number-element expanded">25</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="court-stats">
+        <div class="names-overlay">
+          <table class="stats-table"></table>
+        </div>
+        <div class="stats-viewable-area">
+          <table class="stats-table">
+            <tbody>
+              <tr class="header-row">
+                <td class="name-element">Starters</td>
+                <td class="number-element">PTS</td>
+                <td class="number-element">REB</td>
+                <td class="number-element">AST</td>
+                <td class="number-element expanded">FG</td>
+                <td class="number-element expanded">3PT</td>
+                <td class="number-element expanded">FT</td>
+                <td class="number-element">PF</td>
+                <td class="number-element hide-on-narrow">MIN</td>
+                <td class="number-element expanded">STL</td>
+                <td class="number-element expanded">BLK</td>
+                <td class="number-element expanded">TO</td>
+                <td class="number-element for-mobile">OREB</td>
+                <td class="number-element for-mobile">DREB</td>
+                <td class="number-element expanded">+/-</td>
+                <td class="number-element expanded">FPTS</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/1685204/stephen-curry/" target="_blank">S. Curry</a>
+                </td>
+                <td class="number-element">33</td>
+                <td class="number-element">6</td>
+                <td class="number-element">7</td>
+                <td class="number-element expanded">10/22</td>
+                <td class="number-element expanded">4/13</td>
+                <td class="number-element expanded">9/9</td>
+                <td class="number-element">1</td>
+                <td class="number-element hide-on-narrow">32</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element expanded">1</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element for-mobile">1</td>
+                <td class="number-element for-mobile">5</td>
+                <td class="number-element expanded">+20</td>
+                <td class="number-element expanded">54</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/1647559/klay-thompson/" target="_blank">K. Thompson</a>
+                </td>
+                <td class="number-element">18</td>
+                <td class="number-element">2</td>
+                <td class="number-element">3</td>
+                <td class="number-element expanded">6/13</td>
+                <td class="number-element expanded">2/6</td>
+                <td class="number-element expanded">4/5</td>
+                <td class="number-element">3</td>
+                <td class="number-element hide-on-narrow">19</td>
+                <td class="number-element expanded">1</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">2</td>
+                <td class="number-element for-mobile">0</td>
+                <td class="number-element for-mobile">2</td>
+                <td class="number-element expanded">+11</td>
+                <td class="number-element expanded">25</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bench-stats">
+        <div class="names-overlay">
+          <table class="stats-table"></table>
+        </div>
+        <div class="stats-viewable-area">
+          <table class="stats-table">
+            <tbody>
+              <tr class="header-row">
+                <td class="name-element">Bench</td>
+                <td class="number-element">PTS</td>
+                <td class="number-element">REB</td>
+                <td class="number-element">AST</td>
+                <td class="number-element expanded">FG</td>
+                <td class="number-element expanded">3PT</td>
+                <td class="number-element expanded">FT</td>
+                <td class="number-element">PF</td>
+                <td class="number-element hide-on-narrow">MIN</td>
+                <td class="number-element expanded">STL</td>
+                <td class="number-element expanded">BLK</td>
+                <td class="number-element expanded">TO</td>
+                <td class="number-element for-mobile">OREB</td>
+                <td class="number-element for-mobile">DREB</td>
+                <td class="number-element expanded">+/-</td>
+                <td class="number-element expanded">FPTS</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/2892690/jordan-poole/" target="_blank">J. Poole</a>
+                </td>
+                <td class="number-element">12</td>
+                <td class="number-element">2</td>
+                <td class="number-element">7</td>
+                <td class="number-element expanded">4/15</td>
+                <td class="number-element expanded">2/9</td>
+                <td class="number-element expanded">2/2</td>
+                <td class="number-element">2</td>
+                <td class="number-element hide-on-narrow">28</td>
+                <td class="number-element expanded">2</td>
+                <td class="number-element expanded">0</td>
+                <td class="number-element expanded">4</td>
+                <td class="number-element for-mobile">0</td>
+                <td class="number-element for-mobile">2</td>
+                <td class="number-element expanded">+1</td>
+                <td class="number-element expanded">26</td>
+              </tr>
+
+              <tr class="no-hover data-row">
+                <td class="name-element">
+                  <a class="name-truncate" href="https://www.cbssports.com/nba/players/498289/andre-iguodala/" target="_blank">A. Iguodala</a>
+                </td>
+                <td class="number-element">-</td>
+                <td class="number-element">-</td>
+                <td class="number-element">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element">-</td>
+                <td class="number-element hide-on-narrow">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element for-mobile">-</td>
+                <td class="number-element for-mobile">-</td>
+                <td class="number-element expanded">-</td>
+                <td class="number-element expanded">-</td>
+              </tr>
+              <tr class="total-row">
+                <td class="name-element">Total</td>
+                <td class="number-element">123</td>
+                <td class="number-element">48</td>
+                <td class="number-element">31</td>
+                <td class="number-element expanded">45/99</td>
+                <td class="number-element expanded">16/45</td>
+                <td class="number-element expanded">17/23</td>
+                <td class="number-element">23</td>
+                <td class="number-element hide-on-narrow">234</td>
+                <td class="number-element expanded">11</td>
+                <td class="number-element expanded">3</td>
+                <td class="number-element expanded">18</td>
+                <td class="number-element for-mobile">11</td>
+                <td class="number-element for-mobile">37</td>
+                <td class="number-element expanded">+70</td>
+                <td class="number-element expanded">229</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
