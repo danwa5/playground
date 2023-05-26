@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
+import { Button, FormControl, Select, MenuItem } from '@mui/material';
 import { format } from 'date-fns';
 import axios from 'axios';
 
@@ -39,16 +40,10 @@ function Search({ onQuery }) {
         WAS: 'Washington Wizards',
     };
 
-    const [selectedTeam, setSelectedTeam] = useState('');
-    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTeam, setSelectedTeam] = useState('GS');
+    const [selectedDate, setSelectedDate] = useState(lastGameDate);
 
-    function buildTeamOptions() {
-        return Object.entries(allTeams).map(([teamKey, teamName]) => (
-            <option value={teamKey}>{teamName}</option>
-        ));
-    }
-
-    function handleSubmit(e) {
+    const handleSearch = (e) => {
         e.preventDefault();
         const formattedDate = format(selectedDate, 'yyyy-MM-dd');
 
@@ -60,27 +55,44 @@ function Search({ onQuery }) {
                 const results = res.data.stats;
                 onQuery(results);
             });
-    }
+    };
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <select
+            <FormControl
+                sx={{ m: 1, maxWidth: 230, minWidth: 230 }}
+                size='small'
+            >
+                <Select
                     name='team'
-                    onChange={(e) => setSelectedTeam(e.target.value)}
+                    defaultValue='GS'
+                    onChange={(e) => {
+                        setSelectedTeam(e.target.value);
+                    }}
                 >
-                    {buildTeamOptions()}
-                </select>
+                    {Object.entries(allTeams).map(([teamKey, teamName]) => (
+                        <MenuItem key={teamKey} value={teamKey}>
+                            {teamName}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
 
+            <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
                 <DatePicker
-                    defaultValue={firstGameDate}
+                    defaultValue={lastGameDate}
                     minDate={firstGameDate}
                     maxDate={lastGameDate}
                     onChange={(newValue) => setSelectedDate(newValue)}
+                    slotProps={{ textField: { size: 'small' } }}
                 />
+            </FormControl>
 
-                <input type='submit'></input>
-            </form>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+                <Button variant='contained' size='large' onClick={handleSearch}>
+                    Search
+                </Button>
+            </FormControl>
         </div>
     );
 }
