@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
-import { Button, FormControl, Select, MenuItem } from '@mui/material';
+import {
+    Container,
+    Button,
+    FormControl,
+    Select,
+    MenuItem,
+} from '@mui/material';
 import { format } from 'date-fns';
 import axios from 'axios';
 
@@ -58,7 +64,7 @@ function Search({ onQuery }) {
     };
 
     return (
-        <div>
+        <Container maxWidth='md'>
             <FormControl
                 sx={{ m: 1, maxWidth: 230, minWidth: 230 }}
                 size='small'
@@ -93,7 +99,7 @@ function Search({ onQuery }) {
                     Search
                 </Button>
             </FormControl>
-        </div>
+        </Container>
     );
 }
 

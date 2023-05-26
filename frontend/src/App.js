@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import Search from './components/Search.js';
 import Results from './components/Results.js';
+import { Container, Toolbar, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 // import './App.css';
 
 function App() {
@@ -11,10 +16,10 @@ function App() {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <div className='App'>
-                <header className='App-header'>
+                <Container maxWidth='xl'>
                     <Search onQuery={setResults} />
                     <Results players={results} />
-                </header>
+                </Container>
             </div>
         </LocalizationProvider>
     );
