@@ -9,43 +9,12 @@ import {
 } from '@mui/material';
 import { format } from 'date-fns';
 import axios from 'axios';
+import { allTeams } from '../allTeams.const';
 
 const firstGameDate = new Date(2022, 9, 18); // Oct 18, 2022
 const lastGameDate = new Date(2023, 3, 9); // Apr 9, 2023
 
 function Search({ onQuery }) {
-    const allTeams = {
-        ATL: 'Atlanta Hawks',
-        BKN: 'Brooklyn Nets',
-        BOS: 'Boston Celtics',
-        CHA: 'Charlotte Hornets',
-        CHI: 'Chicago Bulls',
-        CLE: 'Cleveland Cavaliers',
-        DAL: 'Dallas Mavericks',
-        DEN: 'Denver Nugggets',
-        DET: 'Detroit Pistons',
-        GS: 'Golden State Warriors',
-        HOU: 'Houston Rockets',
-        IND: 'Indiana Pacers',
-        LAC: 'Los Angeles Clippers',
-        LAL: 'Los Angeles Lakers',
-        MEM: 'Memphis Grizzlies',
-        MIA: 'Miami Heat',
-        MIL: 'Milwaukee Bucks',
-        NO: 'New Orleans Pelicans',
-        NY: 'New York Knicks',
-        OKC: 'Oklahoma City Thunder',
-        ORL: 'Orlando Magic',
-        PHI: 'Philadelphia 76ers',
-        PHO: 'Phoenix Suns',
-        POR: 'Portland Trailblazers',
-        SA: 'San Antonio Spurs',
-        SAC: 'Sacramento Kings',
-        TOR: 'Toronto Raptors',
-        UTA: 'Utah Jazz',
-        WAS: 'Washington Wizards',
-    };
-
     const [selectedTeam, setSelectedTeam] = useState('GS');
     const [selectedDate, setSelectedDate] = useState(lastGameDate);
 
@@ -58,7 +27,7 @@ function Search({ onQuery }) {
                 `${process.env.REACT_APP_API_URL}${selectedTeam}?date=${formattedDate}`
             )
             .then((res) => {
-                const results = res.data.stats;
+                const results = res.data;
                 onQuery(results);
             });
     };
@@ -94,7 +63,7 @@ function Search({ onQuery }) {
                 />
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+            <FormControl sx={{ m: 1, minWidth: 100 }} size='small'>
                 <Button variant='contained' size='large' onClick={handleSearch}>
                     Search
                 </Button>

@@ -8,9 +8,13 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    Toolbar,
+    Typography,
 } from '@mui/material';
+import { format, parse } from 'date-fns';
+import { allTeams } from '../allTeams.const';
 
-function Results({ players }) {
+function Results({ data }) {
     function fg3Perc(fg3m, fg3a) {
         return ((fg3m / fg3a) * 100).toFixed(1);
     }
@@ -21,6 +25,7 @@ function Results({ players }) {
 
     return (
         <Container maxWidth='md'>
+            {data.date && <TableToolbar date={data.date} teamKey={data.team} />}
             <TableContainer component={Paper}>
                 <Table
                     sx={{ minWidth: 800 }}
@@ -38,7 +43,7 @@ function Results({ players }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {players.map((player) => (
+                        {data.players?.map((player) => (
                             <TableRow
                                 key={player.player_id}
                                 sx={{
@@ -77,6 +82,31 @@ function Results({ players }) {
                 </Table>
             </TableContainer>
         </Container>
+    );
+}
+
+function TableToolbar(props) {
+    const { date, teamKey } = props;
+    const dateObj = parse(date, 'yyyy-MM-dd', new Date());
+    const formattedDate = format(dateObj, 'MMMM d, yyyy');
+    const teamName = allTeams[teamKey];
+
+    return (
+        <Toolbar
+            sx={{
+                pl: { sm: 2 },
+                pr: { xs: 1, sm: 1 },
+            }}
+        >
+            <Typography
+                sx={{ flex: '1 1 100%' }}
+                variant='h6'
+                id='tableTitle'
+                component='div'
+            >
+                Top {teamName} 3-Point Shooters (as of {formattedDate})
+            </Typography>
+        </Toolbar>
     );
 }
 
